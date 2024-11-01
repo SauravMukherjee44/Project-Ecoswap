@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Filter, Star, ShoppingBag } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const products = [
@@ -65,18 +66,34 @@ const products = [
   }
 ];
 
+
 export default function Stores() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
+
+  
+
   const categories = ['All', 'Kitchen', 'Shopping', 'Bathroom', 'Home'];
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch =
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      selectedCategory === 'All' || product.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+ const handleBuyNow = () => {
+  toast.success('Thanks for shopping with EcoSwap! Together, we can create a more sustainable future for our planet. Every small change matters, and we are here to help you make those changes easier and more impactful.', {
+    position: 'bottom-right',
+    duration: 20000, // Change position to bottom center
+  });
+};
+<Toaster /> 
+
+
 
   return (
     <div className="bg-gray-50 min-h-screen py-8">
@@ -137,11 +154,13 @@ export default function Stores() {
                   <span className="text-lg font-medium text-emerald-600">Rs.{product.price}</span>
                 </div>
                 <a href={product.url} target="_blank" rel="noopener noreferrer">
-                      <button className="flex items-center px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-full hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">
-                        <ShoppingBag className="h-4 w-4 mr-2" />
-                        Buy Now
-                      </button>
-                    </a>
+                  <button
+                    onClick={handleBuyNow}
+                    className="flex items-center px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-full hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">
+                    <ShoppingBag className="h-4 w-4 mr-2" />
+                    Buy Now
+                  </button>
+                </a>
               </div>
             </div>
           ))}

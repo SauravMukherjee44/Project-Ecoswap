@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
-
+import toast, { Toaster } from 'react-hot-toast';
 const products = [
   {
     id: 1,
@@ -67,6 +67,24 @@ const products = [
 export default function FeaturedProducts() {
   const [startIndex, setStartIndex] = useState(0);
   const productsToShow = 3;
+  const [showToast, setShowToast] = useState(false); 
+
+ 
+useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && showToast) {
+        toast.success('Thanks for shopping with EcoSwap!'); // Show toast when tab becomes visible
+        setShowToast(false); // Reset the toast visibility
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [showToast]);
+
 
   const nextProducts = () => {
     setStartIndex((prevIndex) =>
@@ -81,9 +99,16 @@ export default function FeaturedProducts() {
   };
 
   const visibleProducts = products.slice(startIndex, startIndex + productsToShow);
-
+ // Function to show the toast notification
+ const handleBuyNow = () => {
+  toast.success('Thanks for shopping with EcoSwap! Together, we can create a more sustainable future for our planet. Every small change matters, and we are here to help you make those changes easier and more impactful.', {
+    position: 'bottom-right',
+    duration: 20000, // Change position to bottom center
+  });
+};
   return (
     <div id="featured-products" className="bg-white py-16">
+       <Toaster position="top-right" reverseOrder={false} /> {/* Toaster component */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
@@ -140,8 +165,11 @@ export default function FeaturedProducts() {
                         {product.rating} ({product.reviews} reviews)
                       </span>
                     </div>
+                    
                     <a href={product.url} target="_blank" rel="noopener noreferrer">
-                      <button className="flex items-center px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-full hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">
+                      <button 
+                      onClick={handleBuyNow} 
+                      className="flex items-center px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-full hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">
                         <ShoppingBag className="h-4 w-4 mr-2" />
                         Buy Now
                       </button>
