@@ -36,7 +36,7 @@ export default function Profile() {
                 <User className="h-12 w-12 text-emerald-600" />
               </div>
               <div className="ml-6">
-                <h1 className="text-2xl font-bold text-white">Sarah Johnson</h1>
+                <h1 className="text-2xl font-bold text-white">Anjali Tiwari</h1>
                 <p className="text-emerald-100">Eco Warrior since 2024</p>
               </div>
             </div>

@@ -31,12 +31,12 @@ Sustainable</span>
                   </a>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <a
-                    href="#about"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 md:py-4 md:text-lg md:px-10"
-                  >
-                    Learn More
-                  </a>
+                <a
+  href="#about"
+  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#83689D] hover:bg-[#6F5A8A] md:py-4 md:text-lg md:px-10"
+>
+  Learn More
+</a>
                 </div>
               </div>
             </div>
